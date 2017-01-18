@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<title>b00170897-msc-triggerio</title>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/mustache.min.js"></script>
+        <script type="text/javascript" src="js/weather.js"></script>
+    </head>
+    <body>
+        <h1>Foo</h1>
+        <script type="x-mustache-template" id="forecast_information_tmpl">
+            <h1>Forecast for {{display_location.full}}</h1>
+            <p>{{observation_time}}</p>
+        </script>
+        <header id="forecast_information"></header>
+
+        <script type="x-mustache-template" id="current_conditions_tmpl">
+            <table>
+                <tr>
+                    <td><img src="{{icon_url}}" /></td>
+                    <td>
+                        <div>{{weather}}</div>
+                        <div>{{temp_f}}&deg;F</div>
+                        <div>Humidity: {{relative_humidity}}</div>
+                        <div>Wind: {{wind_string}}</div>
+                    </td>
+                </tr>
+            </table>
+        </script>
+        <section id="current_conditions"></section>
+
+        <script type="x-mustache-template" id="forecast_conditions_tmpl">
+            {{#forecastday}}
+            <td>
+                <h2>{{date.weekday_short}}</h2>
+                <img src="{{icon_url}}">
+                <div>{{conditions}}</div>
+                <div>Low: {{low.fahrenheit}}&deg;F</div>
+                <div>High: {{high.fahrenheit}}&deg;F</div>
+            </td>
+            {{/forecastday}}
+        </script>
+        <section id="forecast_conditions">
+            <table>
+                <tr>
+                </tr>
+            </table>
+        </section>
+
+        <div id="options">
+            <div id="options_header">Select City</div>
+            <select id="city_menu"></select>
+        </div>
+   </body>
+</html>

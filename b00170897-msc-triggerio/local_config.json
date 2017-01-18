@@ -1,0 +1,15 @@
+{
+	"general": {},
+	"android": {
+		"sdk": "C:\\Users\\JMX\\AppData\\Local\\Android\\sdk",
+		"profiles": {
+			"DEFAULT": {}
+		}
+	},
+	"web": {
+		"profiles": {
+			"DEFAULT": {}
+		},
+		"node_path": "C:/Program Files/nodejs/node_modules/npm/"
+	}
+}
