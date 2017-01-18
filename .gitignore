@@ -1,0 +1,4 @@
+# exclude development directories and our forge-error.log file
+b00170897-msc-triggerio/.template/
+b00170897-msc-triggerio/development/
+b00170897-msc-triggerio/forge-error.log
