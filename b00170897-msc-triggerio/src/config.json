@@ -23,6 +23,10 @@
 		},
 		"prefs": {
 			"version": "2.1"
+		},
+		"topbar": {
+			"version": "2.12",
+			"config": {}
 		}
 	}
 }
