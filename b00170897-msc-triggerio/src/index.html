@@ -21,22 +21,10 @@
         <script type='text/javascript'>
           $(document).ready(function(){
             var view = {
-              latitude : "55.843353",
-              longitude : "-4.429053",
-              weather: {
-                date: '',
-                temp: '',
-                weather_type: '',
-                hum: '',
-                wind:''
-              },
-              retrievalTime: '0.00ms',
-              processingTime: '0.00ms',
-              outputTime: '0.00ms',
               totalTime: '0.00ms'
             };
 
-            $("#templates").load("templates/q-vs-forgerequest-weather-test.html #content", function(){
+            $("#templates").load("templates/itunes-search-test.html #content", function(){
               var template = document.getElementById('content').innerHTML;
               var output = Mustache.render(template, view);
               $("#container").html(output);

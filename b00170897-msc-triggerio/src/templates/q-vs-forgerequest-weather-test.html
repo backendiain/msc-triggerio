@@ -1,22 +1,23 @@
-<!DOCTYPE html>
-<html>
-    <head>
-    	<title>b00170897-msc-triggerio</title>
-        <script type="text/javascript" src="../js/jquery.js"></script>
-        <script type="text/javascript" src="../js/mustache.min.js"></script>
-        <script type="text/javascript" src="../js/video.min.js"></script>
-    </head>
-    <body>
-		<div class="vid-wrapper">
-			<video id="video-stress-test-vid" class="video-js vjs-default-skin vjs-16-9" controls preload="auto" width="766" height="430"
-			poster="img/video-test.png">
-				<source src="vid/video-test.mp4" type='video/mp4'>
-				<!-- <source src="MY_VIDEO.webm" type='video/webm'> -->
-				<p class="vjs-no-js">
-				  To view this video please enable JavaScript, and consider upgrading to a web browser that
-				  <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-				</p>
-			</video>
-		</div>
-   </body>
-</html>
+<div id="content">
+    <section id="weather-report">
+    	<dl id="weather-report-results-list">
+    		<dt>Weather Report</dt>
+        <dd id="weather-report-coordinates"><strong>Co-Ordinates:</strong> {{latitude}}, {{longitude}}</dd>
+    		<dd id="weather-report-date"><strong>Date-stamp:</strong> <span id="weather-report-date-result">{{weather.date}}</span></dd>
+    		<dd id="weather-report-temp"><strong>Temperature:</strong> <span id="weather-report-temp-result">{{weather.temp}}</span></dd>
+    		<dd id="weather-report-weather-type"><strong>Weather Type:</strong> <span id="weather-report-weather-type-result">{{weather.weather_type}}</span></dd>
+    		<dd id="weather-report-humidity"><strong>Humidity:</strong> <span id="weather-report-humidity-result">{{weather.hum}}</span></dd>
+    		<dd id="weather-report-wind"><strong>Wind:</strong> <span id="weather-report-wind-result">{{weather.wind}}</span></dd>
+    	</dl>
+
+      <p id="weather-report-retrieval-time"><strong>Retrieval Time:</strong> <span id="weather-report-retrieval-time-result">{{retrievalTime}}</span></p>
+      <p id="weather-report-processing-time"><strong>Processing Time:</strong> <span id="weather-report-processing-time-result">{{processingTime}}</span></p>
+      <p id="weather-report-output-time"><strong>Output Time:</strong> <span id="weather-report-output-time-result">{{outputTime}}</span></p>
+      <p id="weather-report-total-time"><strong>Approximate Total Time:</strong> <span id="weather-report-total-time-result">{{totalTime}}</span></p>
+
+      <button id="weather-promise-get-weather-forge" onclick="getWeatherClick('forge')" class="button button-positive">Get Weather - Forge Request</button>
+      <button id="weather-promise-get-weather-nativejs" onclick="getWeatherClick()" class="button button-positive">Get Weather - Native JS Promise</button>
+
+      <p id="weather-coords-note"><em>Note: For the sake of this experiment the geo co-ordinates are hard coded. However, this can be easily tweaked as detailed in the controller.</em></p>
+    </section>
+</div>

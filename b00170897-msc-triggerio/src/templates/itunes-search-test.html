@@ -1,0 +1,59 @@
+<div id="content">
+  <h3>iTunes Search API Test</h3>
+  <div id="itunes-search-results">
+    <ul id="itunes-search-query-details-list">
+      <li id="itunes-search-query-terms">
+        <p><strong>Term: </strong> The Beatles</p>
+      </li>
+
+      <li id="itunes-search-query-url">
+        <p><strong>URL:</strong> http://itunes.apple.com/search?term=the+beatles&amp;country=gb&amp;limit=XXX</p>
+      </li>
+
+      <li id="itunes-search-query-limit">
+        <p><strong>Query Limit (Default 25):</strong></p>
+
+        <label id="itunes-search-query-limit-25" class="checkbox">
+          <input type="radio" name="query_limit" value="25" class="itunes-search-query-limit-option positive"checked> 25
+        </label>
+
+        <label id="itunes-search-query-limit-50" class="checkbox">
+          <input type="radio" name="query_limit" value="50" class="itunes-search-query-limit-option"> 50
+        </label>
+
+        <label id="itunes-search-query-limit-75" class="checkbox">
+          <input type="radio" name="query_limit" value="75" class="itunes-search-query-limit-option"> 75
+        </label>
+
+        <label id="itunes-search-query-limit-100" class="checkbox">
+          <input type="radio" name="query_limit" value="100" class="itunes-search-query-limit-option"> 100
+        </label>
+
+        <label id="itunes-search-query-limit-125" class="checkbox">
+          <input type="radio" name="query_limit" value="125" class="itunes-search-query-limit-option"> 125
+        </label>
+
+        <label id="itunes-search-query-limit-150" class="checkbox">
+          <input type="radio" name="query_limit" value="150" class="itunes-search-query-limit-option"> 150
+        </label>
+
+        <label id="itunes-search-query-limit-175" class="checkbox">
+          <input type="radio" name="query_limit" value="175" class="itunes-search-query-limit-option"> 175
+        </label>
+
+        <label id="itunes-search-query-limit-200" class="checkbox">
+          <input type="radio" name="query_limit" value="200" class="itunes-search-query-limit-option"> 200
+        </label>
+      </li>
+
+      <li id="itunes-search-query-time">
+        <p><strong>Time Taken: <span id="itunes-search-query-time-result">{{totalTime}}</span></strong></p>
+      </li>
+
+      <li id="itunes-search-query-cta">
+        <button id="itunes-search-query-cta-forge" onclick="searchiTunesMediaClick('forge')" class="button button-positive">Search - Forge Request</button>
+        <button id="itunes-search-query-cta-nativejs" onclick="searchiTunesMediaClick('native')" class="button button-positive">Search - Native JavaScript Promise</button>
+      </li>
+    </ul>
+  </div>
+</div>

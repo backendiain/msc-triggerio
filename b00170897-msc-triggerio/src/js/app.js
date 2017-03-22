@@ -1,5 +1,37 @@
 // forge.enableDebug();
 
+var navClick = function(){
+  /* Cordova Test */
+  $("#templates").load("templates/cordova-trigger-performance-test.html #content", function(){
+    var template = document.getElementById('content').innerHTML;
+    var output = Mustache.render(template, view);
+    $("#container").html(output);
+  });
+
+  /* Weather Test */
+  var view = {
+    latitude : "55.843353",
+    longitude : "-4.429053",
+    weather: {
+      date: '',
+      temp: '',
+      weather_type: '',
+      hum: '',
+      wind:''
+    },
+    retrievalTime: '0.00ms',
+    processingTime: '0.00ms',
+    outputTime: '0.00ms',
+    totalTime: '0.00ms'
+  };
+
+  $("#templates").load("templates/q-vs-forgerequest-weather-test.html #content", function(){
+    var template = document.getElementById('content').innerHTML;
+    var output = Mustache.render(template, view);
+    $("#container").html(output);
+  });
+};
+
 /* promiseType parameter must be equal to 'forge' or 'nativeJS' */
 var getWeather = function (pos, promiseType, callback) {
   var weatherData = {};
@@ -301,7 +333,6 @@ var getWeather = function (pos, promiseType, callback) {
 
   /* First we get our weather station site list provided by the MET Office and then either throw an error or continue to get a weather report */
   // var req = 'http://localhost:3000/js/met-office/sitelist.json'; // LOCAL DEV
-  var req = 'assets/src/js/met-office/sitelist.json'; // PRODUCTION
 
   /* We have to do things slightly differently to promisfy the native implementation */
   function makeNativeSitelistReq(method, url){
@@ -334,9 +365,17 @@ var getWeather = function (pos, promiseType, callback) {
 
   var promise;
 
-  /* Test promise chain - we can see the above two functions returning promises from one to the next, we should do the same with getForecastOnSuccess() and error */
+  /* 
+   * Trigger.io cannot make AJAX requests to local files due to its URL canonicalisation being non-standard.
+   * Instead we include the sitelist as a script in a variable accessible to everything and pass it through
+   * return siteListOnSuccess(response, pos, callback);
+  */
+
+  return siteListOnSuccess(sitelist, pos, callback);
+
+/*
   if(promiseType === 'forge'){
-    /* Get Site List */
+    Get Site List
     promise = forge.request.ajax({
       url: req,
       dataType: "json",
@@ -349,7 +388,7 @@ var getWeather = function (pos, promiseType, callback) {
     });
   }
   else{
-    /* Get Site List - fallback to native if the promiseType parameter isn't defined */
+    Get Site List - fallback to native if the promiseType parameter isn't defined
     promise = makeNativeSitelistReq(
       'GET', req
     ).then(
@@ -366,8 +405,9 @@ var getWeather = function (pos, promiseType, callback) {
       }
     );
   }
+*/
 
-  return promise;
+  // return promise;
 };
 
 var outputWeather = function(weatherReport){
@@ -422,4 +462,92 @@ var getWeatherClick = function(type){
         }
 
       getWeather(pos, type, outputWeather);
+};
+
+/* API Docs Here: https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#searchexamples */
+var searchiTunesGetResults = function (req, promiseType, callback) {
+
+  /* We have to do things slightly differently to promisfy the native implementation */
+  function makeiTunesSearchReq(method, url){
+    return new Promise( function(resolve, reject){
+      var itunes_xhr = new XMLHttpRequest();
+      itunes_xhr.open(method, url);
+
+      itunes_xhr.onload = function(){
+        if(this.status >= 200 && this.status < 300){
+          resolve(itunes_xhr.response);
+        }
+        else{
+          reject({
+            status: this.status,
+            statusText: itunes_xhr.statusText
+          });
+        }
+      };
+
+      itunes_xhr.onerror = function(){
+        reject({
+          status: this.status,
+          statusText: itunes_xhr.statusText
+        });
+      };
+
+      itunes_xhr.send();
+    });
+  }
+
+  var promise = false;
+
+  /* NOTE:
+   * Our request is expected as: "https://itunes.apple.com/search?term=jack+johnson" if in production, 
+   * OR "/search?term=jack+johnson" in development with our node server.js file running and NOT ionic for proxy support.
+   * SO BE SURE TO PASS THAT WHEN CALLING THIS SERVICE!
+   */
+  var reqUrl = req;
+
+  if(promiseType === 'forge'){
+    /* Get Site List */
+    return promise = forge.request.ajax({
+      url: reqUrl,
+      dataType: "json",
+      success: function(response){
+        // console.log(response);
+        callback(response);
+      },
+      error: function(error){
+        console.error('There has been an error returning results for your iTunes search query.', error);
+      }
+    });
+  }
+  else{
+    /* iTunes Request - fallback to native if the promiseType parameter isn't defined */
+    return promise = makeiTunesSearchReq(
+      'GET', reqUrl
+    ).then(
+      function iTunesSearchSuccessCallback(response){
+        // console.log(JSON.parse(response));
+        callback(JSON.parse(response));
+      }
+    ).catch(
+      function(e){
+        throw 'There has been an error returning results for your iTunes search query.';
+    });
+  }
+
+  /* If we've caught nothing return false */
+  return promise;
+}
+
+var searchiTunesOutputResults = function(response){
+    var total_time = (performance.now() - window.iTunes_search_start_time).toPrecision(5);
+    // console.log('Response & Time:', response, total_time + 'ms');
+    document.getElementById('itunes-search-query-time-result').innerHTML = total_time + 'ms';
+};
+
+var searchiTunesMediaClick = function(promiseType){
+    var root = 'http://itunes.apple.com/';
+    window.iTunes_search_start_time = performance.now();
+    var limit = $('#itunes-search-query-details-list li input:checked').val();
+
+    searchiTunesGetResults(root + 'search?term=the+beatles&country=gb&limit=' + limit, promiseType, searchiTunesOutputResults);
 };
