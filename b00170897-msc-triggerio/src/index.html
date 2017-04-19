@@ -7,9 +7,50 @@
         <script type="text/javascript" src="js/mustache.min.js"></script>
         <script type="text/javascript" src="js/met-office/sitelist.js"></script>
         <script type="text/javascript" src="js/met-office/find-locations.js"></script>
+        <script type="text/javascript" src="js/video.min.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
     </head>
     <body>
+        <header id="header">
+          <h1 id="app-title">Trigger.IO Prototype</h1>
+
+          <a id="mobile-nav-menu-button">
+            <span class="icon"><i class="fa fa-navicon"></i></span>
+            <span class="">Menu</span>
+          </a>
+        </header>
+
+        <div id="mobile-nav-menu">
+          <nav id="mobile-nav-menu-inner">
+            <ul id="mobile-nav-menu-list">
+              <li id="mobile-nav-bridge-test" class="mobile-nav-menu-item">
+                <a href="#" title="Native Bridge Test" data-nav-id="0">
+                  Native Bridge Test
+                </a>
+              </li>
+
+              <li id="mobile-nav-itunes-search-test" class="mobile-nav-menu-item">
+                <a href="#" title="iTunes Search Test" data-nav-id="1">
+                  iTunes Search Test
+                </a>
+              </li>
+
+              <li id="mobile-nav-weather-test" class="mobile-nav-menu-item">
+                <a href="#" title="Weather Request Test" data-nav-id="2">
+                  Weather Request Test
+                </a>
+              </li>
+
+              <li id="mobile-nav-video-test" class="mobile-nav-menu-item">
+                <a href="#" title="Video Test" data-nav-id="3">
+                  Video Test
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <a id="mobile-nav-menu-close" href="#" title="Hide Navigation">Close x</a>
+        </div>
 
         <div id="container">
 
@@ -17,19 +58,5 @@
 
         <!-- This is where mustache.min.js stores our template markup for later use, hide it by default -->
         <div id="templates" style="display:none;"></div>
-
-        <script type='text/javascript'>
-          $(document).ready(function(){
-            var view = {
-              totalTime: '0.00ms'
-            };
-
-            $("#templates").load("templates/itunes-search-test.html #content", function(){
-              var template = document.getElementById('content').innerHTML;
-              var output = Mustache.render(template, view);
-              $("#container").html(output);
-            });
-          });
-        </script>
    </body>
 </html>

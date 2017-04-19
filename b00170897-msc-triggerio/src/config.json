@@ -13,7 +13,10 @@
 			"reload": true,
 			"trusted_urls": [
 				"*"
-			]
+			],
+			"live": {
+				"enabled": true
+			}
 		},
 		"android": {
 			"remote_debugging": true

@@ -1,10 +1,8 @@
 <div id="content">
-    <script type="text/javascript" src="js/video.min.js"></script>
-
 	<div class="vid-wrapper">
 		<video id="video-stress-test-vid" class="video-js vjs-default-skin vjs-16-9" controls preload="auto" width="766" height="430"
-		poster="../img/video-test.png">
-			<source src="../vid/video-test.mp4" type='video/mp4'>
+		poster="img/video-test.png">
+			<source src="vid/video-test.mp4" type='video/mp4'>
 			<!-- <source src="MY_VIDEO.webm" type='video/webm'> -->
 			<p class="vjs-no-js">
 			  To view this video please enable JavaScript, and consider upgrading to a web browser that
@@ -12,13 +10,4 @@
 			</p>
 		</video>
 	</div>
-
-	<script type="text/javascript">
-		videojs("video-stress-test-vid").ready( function(){
-		  var player = this;
-
-		  // Start our video
-		  player.play();
-		});
-	</script>
 </div>

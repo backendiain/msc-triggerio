@@ -551,3 +551,92 @@ var searchiTunesMediaClick = function(promiseType){
 
     searchiTunesGetResults(root + 'search?term=the+beatles&country=gb&limit=' + limit, promiseType, searchiTunesOutputResults);
 };
+
+var mobileHideNav = function(){
+    $('#mobile-nav-menu-button, #mobile-nav-menu').removeClass('active');
+};
+
+/* Mobile Navigation */
+$(document).ready( function(){
+  $('#mobile-nav-menu-button').click( function(event){
+    event.preventDefault();
+
+    $(this).addClass('active');
+    $('#mobile-nav-menu').addClass('active');
+  });
+
+  $('#mobile-nav-menu-close').click( function(event){
+    event.preventDefault();
+    mobileHideNav();
+  });
+
+  $('#mobile-nav-menu-list li a').click( function(event){
+    event.preventDefault();
+
+    var id = parseInt($(this).attr('data-nav-id'));
+
+    switch(id){
+      case 0:
+          $("#templates").load("../templates/cordova-trigger-performance-test.html #content", function(){
+            var template = document.getElementById('content').innerHTML;
+            var output = Mustache.render(template, view);
+            $("#container").html(output);
+          });
+      break;
+
+      case 1:
+          var view = {
+            totalTime: '0.00ms'
+          };
+
+          $("#templates").load("../templates/itunes-search-test.html #content", function(){
+            var template = document.getElementById('content').innerHTML;
+            var output = Mustache.render(template, view);
+            $("#container").html(output);
+          });   
+      break;
+
+      case 2:
+          var view = {
+            weather: {
+              date: '',
+              temp: '',
+              weather_type: '',
+              hum: '',
+              wind: ''
+            },
+            latitude: '55.843353',
+            longitude: '-4.429053',
+            retrievalTime: '0.00ms',
+            processingTime: '0.00ms',
+            outputTime: '0.00ms',
+            totalTime: '0.00ms'
+          };
+
+          $("#templates").load("../templates/q-vs-forgerequest-weather-test.html #content", function(){
+            var template = document.getElementById('content').innerHTML;
+            var output = Mustache.render(template, view);
+            $("#container").html(output);
+          });     
+      break;
+
+      case 3:
+        $("#templates").load("../templates/videojs.html #content", function(){
+          var template = document.getElementById('content').innerHTML;
+          var output = Mustache.render(template, view);
+          $("#container").html(output);
+
+          /* Play video */
+          videojs("video-stress-test-vid").ready( function(){
+            var player = this;
+
+            // Start our video
+            player.play();
+          });
+        });
+      break;
+    }
+
+    mobileHideNav();
+  });
+});
